@@ -68,6 +68,12 @@ export default {
                 msg:'这是代码注释！！！'
             }
         },
+        mounted(){
+            //根据上传文件自动获取代码语言类型，全局总线数据来自codeMirror
+            this.$bus.$on('getLanguage',(data)=>{
+                this.language=data
+            })
+        },
         methods: {
             submit(){
                 console.log(this.code.length)
@@ -112,7 +118,6 @@ export default {
                     }).then(
                         response=> {
                             console.log("成功",response.data)
-                            console.log(this.code)
                             console.log(this.language)
                             this.msg = response.data
                         },
